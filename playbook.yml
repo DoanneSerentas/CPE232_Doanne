@@ -1,0 +1,27 @@
+- name: Web Server setup (Install + creation)
+  hosts: web_servers
+  gather_facts: yes
+
+  tasks:
+    - name: Install MariaDB
+      ansible.builtin.apt:
+        name: mariadb-server
+        update_cache: yes
+        state: present
+      become: yes
+
+  tasks:
+    - name: Install Apache 2
+      ansible.builtin.apt:
+        name: apache2
+        update_cache: yes
+        state: present
+      become: yes
+
+  tasks:
+    - name: Add PHP support for Apache
+      ansible.builtin.apt:
+        name: libapache2-mod-php
+        update_cache: yes
+        state: present
+      become: yes
