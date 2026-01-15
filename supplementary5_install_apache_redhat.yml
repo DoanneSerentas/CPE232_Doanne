@@ -1,0 +1,26 @@
+- name: Web Server setup (Install + creation) - Red Hat
+  hosts: web_servers
+  gather_facts: yes
+  
+  vars:
+    install_apache2: yes
+    install_php: yes
+
+  tasks:
+    - name: Install Apache 2 and PHP packages
+      ansible.builtin.yum:
+        name: "{{ packages }}"
+        state: present
+      vars:
+        packages:
+          - httpd
+          - php
+          - php-mod_php
+      become: yes
+
+    - name: Start and enable Apache service
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: yes
+      become: yes
