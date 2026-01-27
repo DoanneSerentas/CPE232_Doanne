@@ -1,0 +1,13 @@
+- name: Quiz
+  hosts: web_servers
+  become: true
+  tasks:
+    - name: install nginx, redis server, and ufw
+      apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      loop:
+        - nginx
+        - redis-server
+        - ufw
